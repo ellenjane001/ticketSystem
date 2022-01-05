@@ -1,0 +1,485 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+body {
+  font-family: "Bebas Neue", cursive;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  color: #112d4e;
+  background-color: #dbe2ef;
+}
+input,
+textarea {
+  background: transparent;
+  border: none;
+  padding: 0;
+  /* height: 20px; */
+  border-bottom: 1px solid rgba(2, 2, 2, 0.2);
+  /* border-radius: 0; */
+  /* border-radius: 10px; */
+}
+select {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 0.5px solid;
+  background: none;
+}
+button {
+  background: none;
+  position: relative;
+  box-shadow: 0 0.06px;
+  color: black;
+  border: solid 0.5px;
+  padding: 1px;
+  border-radius: 10px;
+  width: 100px;
+  height: 20px;
+  text-align: center;
+  font-size: smaller;
+}
+button:focus {
+  box-shadow: 0 3px;
+  transform: scale(0.96);
+}
+button:hover {
+  /* background-color: gainsboro; */
+  color: #3f72af;
+}
+
+.main-container {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  grid-template-rows: auto auto auto auto;
+}
+.parent {
+  /* width: 100%; */
+  grid-column: 1/6;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  grid-row: 1/6;
+}
+
+.dashboard-items {
+  font-size: 25px;
+}
+
+/* .parent > * { */
+/* flex-basis: 100%; */
+/* } */
+/* grid-template-columns: auto auto auto; */
+/* grid-template-rows: auto auto; */
+/* justify-content: center; */
+/* grid-column: 1/3; */
+/* grid-row: 1/1; */
+/* background-color: white !important; */
+/* grid-row: 2/2; */
+/* grid-column: 1/4; */
+.columns {
+  flex-basis: 20% !important;
+}
+.column {
+  flex-basis: 80% !important;
+}
+#parent {
+  grid-column: 3/4;
+}
+.main-header {
+  grid-column: 1/8;
+  grid-row: 1/1;
+  display: grid;
+  height: 100px;
+  grid-template-columns: auto auto auto auto;
+  background-color: #f9f7f7;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+}
+.view {
+  width: 100%;
+  height: 100%;
+}
+.panel {
+  width: 100%;
+  display: flex;
+  height: 100%;
+}
+.panel > * {
+  flex-basis: 100%;
+}
+
+.panel-userDashboard {
+  background-color: white;
+  display: none;
+}
+.panel-userDashboard-header {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.panel-addTicket-content {
+  margin-top: 50px;
+}
+
+.ticketLogs {
+  list-style: none;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+.list-item {
+  display: flex;
+  flex-direction: column;
+}
+.list-item span {
+  text-align: left;
+}
+.list-item-user {
+  height: 50px;
+  width: 50px;
+  border: #112d4e solid 0.1px;
+  /* width: fit-content; */
+  border-radius: 50%;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  /* text-justify: auto; */
+}
+.ticketLogs li {
+  display: inline-block;
+
+  clear: both;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 2px;
+  width: 70%;
+  font-family: Helvetica, Arial, sans-serif;
+}
+.him {
+  background: #dbe2ef;
+  border: solid 0.1px;
+  float: left;
+}
+
+.me {
+  float: right;
+  background: #dbe2ef;
+  border: solid 0.1px;
+}
+/* .panel-userDashboard-items { */
+/* } */
+/* .panel-addTicket { */
+/* background-color: white; */
+/* } */
+/* color: #f9f7f7; */
+/* display: inline-block; */
+/* clear: both; */
+/* padding: 15px; */
+/* border-radius: 20px; */
+/* margin-bottom: 2px; */
+/* width: 300px; */
+/* font-family: Helvetica, Arial, sans-serif; */
+/* .him + .me { */
+/* border-bottom-right-radius: 5px; */
+/* } */
+
+/* .me + .me { */
+/* border-top-right-radius: 5px; */
+/* border-bottom-right-radius: 5px; */
+/* } */
+#message {
+  grid-column: 1/4;
+  grid-row: 2/3;
+  width: 100%;
+  text-align: center;
+}
+#createHeader {
+  grid-column: 1/4;
+  grid-row: 2/2;
+  text-align: center;
+}
+.form {
+  grid-column: 2/3;
+  grid-row: 3;
+}
+.list {
+  list-style: none;
+}
+.main {
+  grid-column: 1/8;
+  grid-row: 2/9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: auto;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.item {
+  margin: 50px 0 0 0;
+  width: 100%;
+  border-radius: 50px;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  align-content: center;
+}
+.item-col-span-4 {
+  grid-column: 1/4;
+  align-self: center;
+  text-align: center;
+}
+.item-col-list {
+  grid-column: 2/2;
+  grid-row: 2/5;
+  text-align: center;
+}
+.item-col-open {
+  grid-row: 2/2;
+}
+.item-col-pending {
+  grid-row: 3/3;
+}
+.item-col-resolved {
+  grid-row: 4/4;
+}
+.col {
+  grid-column: 1/3;
+  width: 33%;
+  text-align: center;
+  align-content: center;
+}
+.item-1 {
+  grid-column: 3/3;
+}
+
+.home {
+  grid-column: 1/8;
+  grid-row: 3/3;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 10px 30px auto auto;
+  /* justify-content: center; */
+}
+.tbl {
+  grid-column: 1/5;
+  width: 100%;
+}
+
+.historyLogs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.historyLogs-table {
+  border-collapse: collapse;
+}
+.historyLogs-table thead {
+  width: 100%;
+}
+.historyLogs-table thead tr {
+  display: flex;
+}
+
+.historyLogs-table thead tr > * {
+  flex-basis: 100%;
+}
+
+.historyLogs-table tbody {
+  display: flex;
+  overflow-y: auto;
+  overflow-x: auto;
+  height: 600px;
+  width: 100%;
+  flex-direction: column;
+}
+.historyLogs-table tbody tr {
+  display: flex;
+}
+.historyLogs-table tbody tr > * {
+  flex-basis: 100%;
+}
+.id {
+  flex-basis: 100px !important;
+}
+.historyLogs-table td {
+  /* color: #112d4e; */
+  padding: 5px;
+}
+.container {
+  /* width: 100%; */
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  grid-row-gap: 10px;
+  height: fit-content;
+  /* margin-top: 40px; */
+}
+
+.header {
+  grid-column: 1/4;
+  margin: auto;
+}
+.panel1 {
+  margin: 10px;
+  grid-column: 1/4;
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto;
+  grid-auto-flow: row;
+  justify-content: center;
+  grid-column-gap: 15px;
+}
+.panel2 {
+  margin: 5px;
+  grid-column: 1/4;
+  grid-row: 3;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-template-rows: auto;
+  grid-auto-flow: row;
+  justify-content: center;
+  grid-column-gap: 15px;
+}
+
+.user {
+  grid-column: end;
+  justify-content: end;
+  height: 25%;
+}
+
+#divLogin {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: center;
+}
+#login {
+  grid-column: 2/2;
+}
+.account {
+  color: green;
+}
+.hide {
+  display: none;
+}
+.show {
+  display: block !important;
+}
+
+textarea {
+  resize: none;
+}
+
+#login {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  border-radius: 3px;
+
+  overflow: visible;
+  width: 300px;
+  height: 300px;
+}
+.logInput {
+  font-family: "IBM Plex Sans", sans-serif;
+  border: "rgba(0, 0, 0, 0)";
+  border-radius: 8px;
+  border-width: 1px;
+  padding: 15px;
+  text-transform: none !important;
+}
+#loginBtn {
+  font-family: "IBM Plex Sans", sans-serif;
+  /* border: "rgba(0, 0, 0, 0)"; */
+  background-color: #393e46;
+  color: azure;
+  border-radius: 1px;
+  border-width: 1px;
+  padding: 15px;
+  margin: 10px;
+  height: 50px;
+}
+.success {
+  color: green;
+  text-align: center;
+}
+.error {
+  color: red;
+  text-align: center;
+}
+#navbar {
+  width: 100%;
+  grid-column: 1/7;
+  grid-row: 2/2;
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  font-size: 28px;
+  grid-column-gap: 200px;
+  height: 50px;
+  justify-content: center;
+  background-color: #f9f7f7;
+}
+a {
+  text-decoration: none;
+  color: #112d4e;
+}
+
+#navbar a.active {
+  /* background-color: #00adb5; */
+  color: #3f72af;
+}
+
+.col1 {
+  width: 200px;
+  height: 200px;
+  padding: 15px;
+  text-align: center;
+  font-size: 13px;
+  cursor: default;
+  color: rgb(0, 0, 0);
+  border: 0.05px solid;
+}
+
+.textFormat {
+  font-family: "IBM Plex Sans", sans-serif;
+  text-transform: capitalize;
+  text-align: center;
+  cursor: default;
+  width: 300px;
+  height: 200px;
+  /* background-color: #c1e1e2; */
+  border: 0.05px solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  border-radius: 50px;
+}
+.items {
+  grid-row: 1/1;
+  grid-column: 10/2;
+}
+.item1 {
+  grid-column: 1/1;
+}

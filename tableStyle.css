@@ -1,0 +1,188 @@
+.hide {
+  display: none;
+}
+.show {
+  display: block !important;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.filter {
+  /* width: 30%; */
+  /* border: solid 0.05px; */
+  /* height: 300px; */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.filter a,
+select,
+ul,
+input[type="text"] {
+  font-family: "IBM Plex Sans", sans-serif;
+  text-transform: capitalize;
+  font-size: 14px;
+  margin: 10px;
+}
+.tbl {
+  border-collapse: collapse;
+}
+fieldset {
+  display: inline-block;
+  /* border-color: white; */
+  border: 0px;
+}
+input[type="radio"]:checked:after {
+  width: 10px;
+  height: 10px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #3f72af;
+  content: "";
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+}
+
+.values {
+  display: none;
+}
+
+.size {
+  width: 50px !important;
+}
+
+.tbl tbody {
+  display: block;
+  overflow-y: auto;
+  overflow-x: auto;
+  height: 500px;
+  border: none;
+}
+.tbl thead {
+  width: 100%;
+}
+.tbl thead tr {
+  display: grid;
+  grid-template-columns: repeat(10, auto);
+  grid-row-gap: 5px;
+  grid-column-gap: 5px;
+}
+.tbl tbody tr {
+  display: grid;
+  grid-template-columns: repeat(10, auto);
+  grid-row-gap: 5px;
+  grid-column-gap: 5px;
+}
+
+.tbl th,
+.tbl td {
+  padding: 2px;
+  text-align: center;
+  width: 95px;
+}
+th {
+  border-bottom: 0.5px;
+}
+
+.wrapper {
+  margin-top: 15px;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  width: 100%;
+}
+button,
+table {
+  text-transform: capitalize;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 14px;
+}
+a.account {
+  font-size: 25px;
+  text-transform: uppercase;
+  color: #3f72af;
+}
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 25%;
+  /* align-items: center; */
+  /* Could be more or less, depending on screen size */
+}
+
+.close {
+  cursor: pointer;
+  font-size: 30px;
+}
+
+input,
+textarea {
+  /* -webkit-appearance: none; */
+  /* border-radius: 5px; */
+  border-width: 0.05px;
+  color: black;
+}
+
+input:disabled,
+textarea:disabled,
+select:disabled {
+  background: none;
+  border: none;
+  /* border-radius: 5px; */
+  border-bottom: solid 0.05px;
+  color: #555;
+}
+
+.dropdown,
+textarea {
+  font-family: "IBM Plex Sans", sans-serif;
+  text-transform: capitalize;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
