@@ -28,6 +28,7 @@ if ($_SESSION['accountInfo']['type'] != 'admin') {
         </div>
         <div class="historyLogs">
             <?php
+
             $query = $historyLogs->showHistoryLogs();
             $row = $query->fetchAll(PDO::FETCH_ASSOC);
             // exit(print_r($row));
@@ -79,25 +80,4 @@ require_once('components/footer.php'); ?>
 
     remove();
     CSSchange();
-
-    $(document).ready(function() {
-        load_data();
-
-        function load_data(query) {
-            $.ajax({
-                url: "accounts.php",
-                method: "POST",
-                data: {
-                    query: query,
-                    requestType: 'show'
-                },
-                //dataType: JSON,
-                success: function(data) {
-                    console.log(data)
-                    $('#message').html(data);
-                }
-            });
-
-        }
-    })
 </script>

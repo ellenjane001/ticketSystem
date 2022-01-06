@@ -1,6 +1,7 @@
 <?php
 // require_once('components/header.php');
 require_once('database/dbconn.php');
+require_once('accounts.php');
 
 
 // exit(print_r($_REQUEST));
@@ -33,8 +34,11 @@ class TicketMonitoring
                     break;
                 case 'create':
                     $ticketLogs = new TicketLogs();
+                    $historyLogs = new historyLogs();
                     $this->createTicket($args);
                     $ticketLogs->addTicketLog($args);
+                    $historyLogs->addLog($args);
+
                     break;
                 case 'showSingle':
                     $ticketLogs = new TicketLogs();
@@ -42,8 +46,10 @@ class TicketMonitoring
                     break;
                 case 'update':
                     $ticketLogs = new TicketLogs();
+                    $historyLogs = new historyLogs();
                     $ticketLogs->addTicketLog($args);
                     $this->updateTicket($args);
+                    $historyLogs->addLog($args);
                     break;
                 default:
                     echo "ERROR101";
@@ -165,6 +171,7 @@ class TicketMonitoring
                 case 'user':
                     $sql = "SELECT * FROM " . $this->db_table . "
                     WHERE createdBy = '" . $params['user'] . "'";
+                    // exit(print_r($sql));
                     showData($sql);
                     break;
             }
@@ -272,7 +279,7 @@ class TicketMonitoring
         VALUES (
             '" . $params['ticketNum'] . "', 
             '" . $params['problem'] . "', 
-            '" . $params['user'] . "', 
+            '" . $params['username'] . "', 
             '" . $params['category'] . "', 
             '" . $params['priority'] . "', 
             '" . $params['due'] . "',
@@ -299,7 +306,7 @@ class TicketMonitoring
         $sql = "UPDATE
         " . $this->db_table . "
         SET
-        createdBy='" . $params['user'] . "',
+        createdBy='" . $params['username'] . "',
         dateNTime ='" . $params['dateNTime'] . "',
         status ='" . $params['status'] . "'
         WHERE
@@ -414,7 +421,7 @@ class TicketLogs
         ' " . $params['action'] . "', 
         '" . $params['actionDetails'] . "',
         '" . $params['dateNTime'] . "', 
-        '" . $params['user'] . "', 
+        '" . $params['username'] . "', 
         '" . $params['status'] . "', 
         '" . $params['actionBy'] . "')";
         // exit(print_r($sql));

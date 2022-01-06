@@ -1,4 +1,4 @@
-    <?php
+<?php
     require_once('components/header.php');
     require_once('database/dbconn.php');
     require_once('tickets.php');
