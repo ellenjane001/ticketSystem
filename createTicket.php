@@ -31,7 +31,7 @@ require_once('components/nav.php');
                         <div>
                             <label for="category">Request Category</label>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="dateNTime">Date & Time:</label>
-                            <input type="hidden" name="dateNtime" id="dateNtime" value="<?= date('Y-m-d H:i') ?>">
+                            <input type="hidden" name="dateNtime" id="dateNTime" value="<?= date('Y-m-d H:i') ?>">
                             <span id="dateNTime"><?= date('Y-m-d H:i') ?></span>
                             <br>
                             <select class="dropdown" name="category" id="category" onclick="showInput(this)">

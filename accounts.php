@@ -118,9 +118,8 @@ class historyLogs
         VALUES 
         ('" . $params['username'] . "',
         '" . $params['action'] . "',
-        '" . $params['dateNtime'] . "');";
+        '" . $params['dateNTime'] . "');";
         // exit(print_r($sql));
-
         $query = $this->conn->prepare($sql);
 
         if ($query->execute()) {
