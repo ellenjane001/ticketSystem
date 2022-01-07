@@ -168,9 +168,9 @@ function getValue(value) {
 
 function getHistoryLogFieldsetValue(value) {
     var datePickerFrom = document.querySelector('#dateFrom');
-    datePickerFrom.max = new Date().toLocaleDateString('en-ca');
+    // datePickerFrom.max = new Date().toLocaleDateString('en-ca');
     var datePickerTo = document.querySelector('#dateTo')
-    datePickerTo.max = new Date().toLocaleDateString('en-ca');
+    // datePickerTo.max = new Date().toLocaleDateString('en-ca');
     if (value === undefined) {
         loadAccounts();
     } else {
@@ -182,12 +182,13 @@ function getHistoryLogFieldsetValue(value) {
             // console.log(params, show)
             loadAccounts(show, params);
         } else if (value.classList[0] === 'showData') {
-
+            console.log(datePickerFrom.value + datePickerTo.value)
             if (value.name === 'showDateFrom' && value.name === 'showDateTo') {
                 date = datePickerFrom.value + datePickerTo.value
+                console.log(datePickerFrom.value + datePickerTo.value)
                 show = 'select'
                 loadAccounts(show, date);
-                // console.log(datePickerFrom.value)
+
             }
         } else {
             console.log('no value')

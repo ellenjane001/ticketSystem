@@ -53,10 +53,10 @@ if ($_SESSION['accountInfo']['type'] != 'admin') {
                 <label for="">Select date</label>
                 <div style="display:none;" id="selectDate">
                     <span>FROM</span>
-                    <input type="date" class="showData" name="showDateFrom" id="dateFrom" max="" onchange="getHistoryLogFieldsetValue(this)">
+                    <input type="datetime-local" class="showData" name="showDateFrom" id="dateFrom" max="" onchange="getHistoryLogFieldsetValue(this)">
                     <br>
                     <span>TO</span>
-                    <input type="date" class="showData" name="showDateTo" id="dateTo" max="" onchange="getHistoryLogFieldsetValue(this)">
+                    <input type="datetime-local" class="showData" name="showDateTo" id="dateTo" max="" onchange="getHistoryLogFieldsetValue(this)">
                 </div>
             </fieldset>
         </div>
