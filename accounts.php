@@ -5,7 +5,8 @@ require_once('database/dbconn.php');
 
 $accounts = new Accounts;
 $accounts->init($_REQUEST);
-
+$history = new historyLogs;
+$history->initialize($_REQUEST);
 class Accounts
 {
     public $db_table = 'accounts';
@@ -28,10 +29,6 @@ class Accounts
                 case 'logout':
                     $logs = new historyLogs();
                     $logs->addLog($params);
-                    break;
-                case 'show':
-                    $logs = new historyLogs();
-                    $logs->showHistoryLogs();
                     break;
                 default:
                     echo "ERROR101";
@@ -108,6 +105,16 @@ class historyLogs
         $database = new Database();
         $this->conn = $database->getConnection();
     }
+    public function initialize($args)
+    {
+        // print_r($args);
+        $type = $args['request'];
+        switch ($type) {
+            case 'user':
+                $this->showHistoryLogs($args);
+                break;
+        }
+    }
 
     public function addLog($params)
     {
@@ -130,11 +137,55 @@ class historyLogs
         }
     }
 
-    public function showHistoryLogs()
+    public function showHistoryLogs($args)
     {
-        $sql = "SELECT * FROM historylogs";
-        $query = $this->conn->prepare($sql);
-        $query->execute();
-        return $query;
+        function showData($sql)
+        {
+            $database = new Database();
+            $conn = $database->getConnection();
+            $query = $conn->prepare($sql);
+            $query->execute();
+            $row = $query->fetchAll(PDO::FETCH_ASSOC);
+            // exit(print_r($row));
+            $temp = "<table class='historyLogs-table'>";
+            $temp .= "<thead>";
+            $temp .= "<tr>";
+            $temp .= "<th class='id'>id</th>";
+            $temp .= "<th>user</th>";
+            $temp .= "<th>event</th>";
+            $temp .= "<th>date and time</th></tr>";
+            $temp .= "</thead>";
+            $temp .= "<tbody>";
+            foreach ($row as $data) :
+                $temp .= "<tr >";
+
+                $temp .= "<td class='id'>" . $data["id"] . "</td>";
+                $temp .= "<td >" . $data["user"] . "</td>";
+                $temp .= "<td >" . $data["event"] . "</td>";
+                $temp .= "<td >" . $data["dateNtime"] . "</td>";
+                $temp .= "</tr>";
+            endforeach;
+            $temp .= "</tbody>";
+            $temp .= "</table>";
+            echo $temp;
+        }
+        $params = $args['query'];
+
+        if (isset($args['query'])) {
+            switch ($params) {
+                case 'all':
+                    $sql = "SELECT * FROM historylogs";
+                    showData($sql);
+                    break;
+                case 'userHistory':
+                    // echo "<script>console.log('hi')</script>";
+                    $sql = "SELECT * FROM historylogs WHERE user ='" . $args['search'] . "'";
+                    showData($sql);
+                    break;
+            }
+        } else {
+            $sql = "SELECT * FROM historylogs";
+            showData($sql);
+        }
     }
 }

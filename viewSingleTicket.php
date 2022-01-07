@@ -1,7 +1,8 @@
-<?php
-    require_once('components/header.php');
-    require_once('database/dbconn.php');
+    <?php
+    // require_once('components/header.php');
     require_once('tickets.php');
+    require_once('database/dbconn.php');
+
 
     $database = new Database();
     $db = $database->getConnection();

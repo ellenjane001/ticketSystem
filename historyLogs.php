@@ -1,12 +1,12 @@
 <?php
-require_once('components/header.php');
+// require_once('components/header.php');
 // require_once('database/dbconn.php');
 require_once('accounts.php');
 require_once('components/nav.php');
 $database = new Database();
 $conn = $database->getConnection();
 $historyLogs = new historyLogs($conn);
-
+$accounts = new Accounts($conn);
 
 if (!(isset($_SESSION['accountInfo']))) {
     echo "Please <a href=index.php>login</a> to use this page ";
@@ -20,41 +20,57 @@ if ($_SESSION['accountInfo']['type'] != 'admin') {
 ?>
 
 <div class="main">
-    <div class="view">
-        <div>
+    <div class="panel">
+
+        <div class="panel-filter">
+            <!-- <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. At rerum aut odio officia aliquid voluptatem.</p> -->
+            <fieldset class='filter-fieldset'>
+                <legend>Filter by
+                </legend>
+                <!-- <span>USER</span> -->
+                <div>
+                    <?php
+                    $result = $accounts->getUsers();
+                    $stmt = $result->fetchAll(PDO::FETCH_ASSOC);
+
+                    foreach ($stmt as $row) : ?>
+                        <input type="radio" name="HistoryLogsRadio_user" id="<?= $row['username'] ?>" value="<?= $row['username'] ?>" onclick="getHistoryLogFieldsetValue(this)">
+                        <label for="<?= $row['username'] ?>"><?= $row['username'] ?></label> <br>
+                    <?php
+
+
+                    endforeach;
+                    ?>
+
+                </div>
+            </fieldset>
+            <br>
+            <fieldset>
+                <legend>SHOW data</legend>
+                <input type="radio" class="showData" name="showData" id="" onclick="getHistoryLogFieldsetValue(this)">
+                <label for="">ALL</label><br>
+                <input type="radio" class="showData" name="showData" id="" value="select" onclick="showSelect(this)">
+                <label for="">Select date</label>
+                <div style="display:none;" id="selectDate">
+                    <span>FROM</span>
+                    <input type="date" class="showData" name="showDateFrom" id="dateFrom" max="" onchange="getHistoryLogFieldsetValue(this)">
+                    <br>
+                    <span>TO</span>
+                    <input type="date" class="showData" name="showDateTo" id="dateTo" max="" onchange="getHistoryLogFieldsetValue(this)">
+                </div>
+            </fieldset>
+        </div>
+        <div class="panel-historylog">
             <div>
-                <h1 style="display:flex; justify-content:center;">HISTORY LOGS</h1>
+                <div>
+                    <h1 style="display:flex; justify-content:center;">HISTORY LOGS</h1>
+                </div>
+            </div>
+            <div class="historyLogs">
+                <div id="data"></div>
             </div>
         </div>
-        <div class="historyLogs">
-            <?php
 
-            $query = $historyLogs->showHistoryLogs();
-            $row = $query->fetchAll(PDO::FETCH_ASSOC);
-            // exit(print_r($row));
-            $temp = "<table class='historyLogs-table'>";
-            $temp .= "<thead>";
-            $temp .= "<tr>";
-            $temp .= "<th class='id'>id</th>";
-            $temp .= "<th>user</th>";
-            $temp .= "<th>event</th>";
-            $temp .= "<th>date and time</th></tr>";
-            $temp .= "</thead>";
-            $temp .= "<tbody>";
-            foreach ($row as $data) :
-                $temp .= "<tr >";
-
-                $temp .= "<td class='id'>" . $data["id"] . "</td>";
-                $temp .= "<td >" . $data["user"] . "</td>";
-                $temp .= "<td >" . $data["event"] . "</td>";
-                $temp .= "<td >" . $data["dateNtime"] . "</td>";
-                $temp .= "</tr>";
-            endforeach;
-            $temp .= "</tbody>";
-            $temp .= "</table>";
-            echo $temp;
-            ?>
-        </div>
     </div>
 </div>
 </div>
