@@ -9,10 +9,11 @@ let dateNtime = document.getElementById("dateNtime").value;
 let action = 'Logged out';
 let val = 'logout';
 //console.log(username, dateNtime, action, val)
-
+// e.preventDefault(); href="index.php?logout"
+// console.log(username, dateNtime, action, val)
+// console.log(value.value)
 function logout() {
-    // e.preventDefault(); href="index.php?logout"
-    // console.log(username, dateNtime, action, val)
+
     $.ajax({
         url: "accounts.php",
         method: "post",
@@ -96,7 +97,7 @@ function showSelect(radioSelect) {
 }
 
 function sendInput(value) {
-    // console.log(value.value)
+
     let x = document.getElementById('selectOther');
     x.value = value.value;
 }
@@ -178,13 +179,14 @@ function getHistoryLogFieldsetValue(value) {
             params = value.value
 
             show = 'userHistory';
-            console.log(params, show)
+            // console.log(params, show)
             loadAccounts(show, params);
         } else if (value.classList[0] === 'showData') {
 
             if (value.name === 'showDateFrom' && value.name === 'showDateTo') {
-                date = datePickerFrom.value
+                date = datePickerFrom.value + datePickerTo.value
                 show = 'select'
+                loadAccounts(show, date);
                 // console.log(datePickerFrom.value)
             }
         } else {
@@ -207,10 +209,89 @@ function loadAccounts(value, value1) {
     });
 }
 
+function back() {
+    window.location.href = 'viewTickets.php';
+}
+
+function pageLoader(value) {
+
+    console.log(value.id);
+    let id = value.id;
+    let url = 'viewSingleTicket.php?'
+    var id_get = 'id=' + id;
+    window.location.href = url + id_get;
+
+
+}
+
+function createTicket() {
+    var ticketNumber = document.getElementById('ticketNumber').value;
+    var user = document.getElementById('user').value;
+    var problem = document.getElementById("issue").value;
+    var category = document.getElementById("category").value;
+    var priority = document.getElementById("priority").value;
+    var dateNTime = document.getElementById("dateNTime").value;
+    var assignedTo = document.getElementById("assignedTo").value;
+    var due = document.getElementById("due").value;
+    console.log(ticketNumber, problem, category, priority,
+        assignedTo, due);
+
+    if (problem === ""
+        || category === ""
+        || priority === "") {
+        console.log("must input request values")
+        var timer = setTimeout(function () {
+            location.reload();
+        }, 300)
+    } else {
+        $.ajax({
+            url: "tickets.php",
+            method: "post",
+            data: {
+                ticketNum: ticketNumber,
+                username: user,
+                problem: problem,
+                category: category,
+                priority: priority,
+                dateNTime: dateNTime,
+                assignedTo: assignedTo,
+                due: due,
+                status: 'open',
+                action: 'added new ticket',
+                request_type: 'create'
+            },
+            datatype: JSON,
+            success: function (data, status) {
+                console.log(status);
+                $('.message').html(data);
+                $('#submitBtn').prop('disabled', true);
+                $('#priority').prop('disabled', true);
+                $('#ticketNumber').prop('disabled', true);
+                $('#issue').prop('disabled', true);
+                $('#assignedTo').prop('disabled', true);
+                $('#due').prop('disabled', true);
+                $('#category').prop('disabled', true);
+                var timer = setTimeout(function () {
+                    location.reload();
+                }, 1500)
+            }
+
+
+        })
+    }
+}
+
+function formEnabler() {
+    $('#priority').prop('disabled', false);
+    $('#ticketNumber').prop('disabled', false);
+    $('#issue').prop('disabled', false);
+    $('#assignedTo').prop('disabled', false);
+    $('#due').prop('disabled', false);
+    $('#submitBtn').prop('disabled', false);
+}
+
 
 $(document).ready(function () {
-    getValue();
-    getHistoryLogFieldsetValue();
     $('#priority').prop('disabled', true);
     $('#ticketNumber').prop('disabled', true);
     $('#issue').prop('disabled', true);
@@ -218,16 +299,9 @@ $(document).ready(function () {
     $('#due').prop('disabled', true);
     $('#submitBtn').prop('disabled', true);
 
-    $('#category').change(function () {
-        $('#priority').prop('disabled', false);
-        $('#ticketNumber').prop('disabled', false);
-        $('#issue').prop('disabled', false);
-        $('#assignedTo').prop('disabled', false);
-        $('#due').prop('disabled', false);
-        $('#submitBtn').prop('disabled', false);
-    }
-
-    )
+    getValue();
+    getHistoryLogFieldsetValue();
+    // loadTicketLogs();
 
     $('#submitBtn').click(function (e) {
 

@@ -182,6 +182,8 @@ class historyLogs
                     $sql = "SELECT * FROM historylogs WHERE user ='" . $args['search'] . "'";
                     showData($sql);
                     break;
+                case 'select':
+                    break;
             }
         } else {
             $sql = "SELECT * FROM historylogs";

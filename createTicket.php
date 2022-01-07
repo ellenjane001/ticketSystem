@@ -34,7 +34,7 @@ require_once('components/nav.php');
                             <input type="hidden" name="dateNtime" id="dateNTime" value="<?= date('Y-m-d H:i') ?>">
                             <span id="dateNTime"><?= date('Y-m-d H:i') ?></span>
                             <br>
-                            <select class="dropdown" name="category" id="category" onclick="showInput(this)">
+                            <select class="dropdown" name="category" id="category" onclick="showInput(this)" onchange="formEnabler()">
                                 <option value="" selected disabled>category</option>
                                 <option value="hardware">Hardware</option>
                                 <option value="software">Software</option>
@@ -82,7 +82,7 @@ require_once('components/nav.php');
                         </div>
 
                         <br>
-                        <div><button class="addRequest" type="button" id="submitBtn">Submit Ticket</button></div> <br>
+                        <div><button class="addRequest" type="button" id="submitBtn" onclick="createTicket()">Submit Ticket</button></div> <br>
                         <input type="text" value="<?= uniqid() ?>" id="ticketNumber" style="display: none;">
                     </form>
                 </div>

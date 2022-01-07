@@ -1,4 +1,4 @@
-<?php require_once('components/header.php'); ?>
+<!-- <?php require_once('components/header.php'); ?> -->
 <!--nav bar  -->
 <div id="stat"></div>
 <div class="main-header">

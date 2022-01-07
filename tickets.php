@@ -1,7 +1,7 @@
 <?php
 // require_once('components/header.php');
 require_once('database/dbconn.php');
-require_once('accounts.php');
+
 
 
 // exit(print_r($_REQUEST));
@@ -34,6 +34,7 @@ class TicketMonitoring
                     break;
                 case 'create':
                     $ticketLogs = new TicketLogs();
+                    require_once('accounts.php');
                     $historyLogs = new historyLogs();
                     $this->createTicket($args);
                     $ticketLogs->addTicketLog($args);
@@ -42,10 +43,12 @@ class TicketMonitoring
                     break;
                 case 'showSingle':
                     $ticketLogs = new TicketLogs();
+                    $this->getSingleTicket($args);
                     $ticketLogs->getSingleTicketLog($args);
                     break;
                 case 'update':
                     $ticketLogs = new TicketLogs();
+                    require_once('accounts.php');
                     $historyLogs = new historyLogs();
                     $ticketLogs->addTicketLog($args);
                     $this->updateTicket($args);
@@ -119,7 +122,7 @@ class TicketMonitoring
                 $temp .= "<td style='width:100px;'>" . $data["dateNTime"] . "</td>";
 
                 $temp .= "<td class='size'>";
-                $temp .= "<a href='viewSingleTicket.php?id=" . $data["ticketNumber"] . "'>View</a>";
+                $temp .= "<a href='#' id=" . $data["ticketNumber"] . " onclick='pageLoader(this)'>View</a>";
                 $temp .= "</td>";
                 $temp .= "</tr>";
             endforeach;
@@ -183,14 +186,20 @@ class TicketMonitoring
 
     public function getSingleTicket($data)
     {
-        $this->ticketNumber = $data;
-        $this->ticketNumber = htmlspecialchars(strip_tags($this->ticketNumber));
+        $ticketNumber = $data['id'];
+        // $this->ticketNumber = $data;
+        // $this->ticketNumber = htmlspecialchars(strip_tags($this->ticketNumber));
         $sql = "SELECT * from " . $this->db_table . " WHERE 
-        ticketNumber = '" . $this->ticketNumber . "'
+        ticketNumber = '" . $ticketNumber . "'
         ";
+
+        // exit(print_r($sql));
         $query = $this->conn->prepare($sql);
         $query->execute();
-        return $query;
+        $row = $query->fetch(PDO::FETCH_ASSOC);
+
+        $temp = "<input type='hidden' value='" . $row['ticket_id'] . "' id='id_num'>";
+        echo $temp;
     }
 
 
@@ -372,9 +381,8 @@ class TicketLogs
         $rows = $query->fetchAll(PDO::FETCH_ASSOC);
 
 
-        $temp = "<ul class='ticketLogs'>";
-        $temp .= "<li>";
-        $temp .= "<div class='list'>";
+        // $temp = "<ul class='ticketLogs'>";
+        $temp = "<div class='list'>";
 
         foreach ($rows as $data) :
 
@@ -394,16 +402,16 @@ class TicketLogs
             }
 
             $temp .= "<div class='list-item'>";
-            $temp .= "<span class='list-item-user'>" . $data["user"] . "</span> <br>";
-            $temp .= "<div  class='$class'><strong>" . $data["actions"] . "</strong>";
-            $temp .= "&nbsp; <br> resolution: " . $data["resolution"] . "";
-            $temp .= "&nbsp; <br> action by: " . $data["actionBy"] . "";
-            $temp .= "<br>" . $data["date_time_updated"] . "";
+            $temp .= "<span class='list-item-user'>" . $data["user"] . "</span>";
+            $temp .= "<div class='$class'><strong>" . $data["actions"] . "</strong>";
+            $temp .= "&nbsp;  resolution: " . $data["resolution"] . "";
+            $temp .= "&nbsp; action by: " . $data["actionBy"] . "";
+            $temp .= "" . $data["date_time_updated"] . "";
             $temp .= " &nbsp;<span style='$color'> " . $data["status"] . "</span></div>";
-            $temp .= "</div> <br>";
+            $temp .= "</div> ";
         endforeach;
-        $temp .= "</div> </li>";
-        $temp .= "</ul>";
+        $temp .= "</div>";
+        // $temp .= "</ul>";
 
         echo  $temp;
     }
