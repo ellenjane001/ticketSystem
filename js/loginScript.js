@@ -7,7 +7,7 @@ $(document).ready(function () {
         e.preventDefault();
         var username = document.getElementById("uname").value;
         var password = document.getElementById('pwd').value;
-        let dateNtime = document.getElementById('dateNtime').value;
+        let dateNTime = document.getElementById('dateNtime').value;
         var val = "login";
         let action = 'Logged in';
         console.log(username);
@@ -23,7 +23,7 @@ $(document).ready(function () {
                     username: username,
                     password: password,
                     requestType: val,
-                    dateNtime: dateNtime,
+                    dateNTime: dateNTime,
                     action: action
                 },
                 datatype: JSON,

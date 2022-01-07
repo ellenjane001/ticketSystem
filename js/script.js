@@ -3,25 +3,6 @@ const none = 'none'
 const bold = 'bold'
 const normal = 'normal'
 
-function GetClock() {
-    var d = new Date();
-    var nmonth = (d.getMonth() + 1),
-        ndate = d.getDate(),
-        nyear = d.getFullYear();
-    if (nmonth <= 9) nmonth = "0" + nmonth;
-    if (ndate <= 9) ndate = "0" + ndate;
-    var nhour = d.getHours(),
-        nmin = d.getMinutes(),
-        nsec = d.getSeconds();
-    if (nmin <= 9) nmin = "0" + nmin;
-    if (nsec <= 9) nsec = "0" + nsec;
-
-    var clocktext = "" + nyear + "-" + nmonth + "-" + ndate + " " + nhour + ":" + nmin + ":" + nsec + "";
-    document.getElementById('time').innerHTML = clocktext;
-}
-
-GetClock();
-setInterval(GetClock, 1000);
 
 let username = document.getElementById("user").value;
 let dateNtime = document.getElementById("dateNtime").value;
@@ -105,9 +86,17 @@ function showInput(radioOther) {
         document.getElementById('otherCtgry').style.display = none;
     }
 }
+function showSelect(radioSelect) {
+    var selectedValue = radioSelect.value;
+    if (selectedValue === "select") {
+        document.getElementById('selectDate').style.display = block;
+    } else if (selectedValue === "") {
+        document.getElementById('selectDate').style.display = none;
+    }
+}
 
 function sendInput(value) {
-    console.log(value.value)
+    // console.log(value.value)
     let x = document.getElementById('selectOther');
     x.value = value.value;
 }
@@ -120,7 +109,7 @@ let show = '';
 let user = '';
 
 function loadData(value, value1) {
-    console.log(value, value1);
+    // console.log(value, value1);
     $.ajax({
         url: "tickets.php",
         method: "POST",
@@ -140,6 +129,7 @@ function loadData(value, value1) {
     });
 }
 function getValue(value) {
+
     if (value === undefined) {
         type = 'show';
         loadData(type);
@@ -167,18 +157,60 @@ function getValue(value) {
             show = 'sort';
             loadData(sort, show);
         } else if (value.name === 'userRadio') {
-            console.log(value.value);
+            // console.log(value.value);
             user = value.value;
-            show = 'user'
+            show = 'user';
             loadData(user, show);
         }
     }
 }
 
+function getHistoryLogFieldsetValue(value) {
+    var datePickerFrom = document.querySelector('#dateFrom');
+    datePickerFrom.max = new Date().toLocaleDateString('en-ca');
+    var datePickerTo = document.querySelector('#dateTo')
+    datePickerTo.max = new Date().toLocaleDateString('en-ca');
+    if (value === undefined) {
+        loadAccounts();
+    } else {
+        console.log(value.classList[0]);
+        if (value.name === 'HistoryLogsRadio_user') {
+            params = value.value
+
+            show = 'userHistory';
+            console.log(params, show)
+            loadAccounts(show, params);
+        } else if (value.classList[0] === 'showData') {
+
+            if (value.name === 'showDateFrom' && value.name === 'showDateTo') {
+                date = datePickerFrom.value
+                show = 'select'
+                // console.log(datePickerFrom.value)
+            }
+        } else {
+            console.log('no value')
+        }
+    }
+}
+function loadAccounts(value, value1) {
+    $.ajax({
+        url: "accounts.php",
+        method: "POST",
+        data: {
+            query: value,
+            search: value1,
+            request: 'user'
+        },
+        success: function (data) {
+            $('#data').html(data);
+        }
+    });
+}
 
 
 $(document).ready(function () {
     getValue();
+    getHistoryLogFieldsetValue();
     $('#priority').prop('disabled', true);
     $('#ticketNumber').prop('disabled', true);
     $('#issue').prop('disabled', true);
@@ -205,7 +237,7 @@ $(document).ready(function () {
         var problem = document.getElementById("issue").value;
         var category = document.getElementById("category").value;
         var priority = document.getElementById("priority").value;
-        var dateNTime = document.getElementById("dateNtime").value;
+        var dateNTime = document.getElementById("dateNTime").value;
         var assignedTo = document.getElementById("assignedTo").value;
         var due = document.getElementById("due").value;
         console.log(ticketNumber, problem, category, priority,
@@ -224,7 +256,7 @@ $(document).ready(function () {
                 method: "post",
                 data: {
                     ticketNum: ticketNumber,
-                    user: user,
+                    username: user,
                     problem: problem,
                     category: category,
                     priority: priority,
@@ -232,7 +264,7 @@ $(document).ready(function () {
                     assignedTo: assignedTo,
                     due: due,
                     status: 'open',
-                    action: 'New ticket',
+                    action: 'added new ticket',
                     request_type: 'create'
                 },
                 datatype: JSON,

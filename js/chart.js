@@ -4,7 +4,7 @@ let openTicket = document.getElementById('open').textContent;
 let a = parseInt(resolved);
 let b = parseInt(pending);
 let c = parseInt(openTicket);
-console.log(a, b, c);
+// console.log(a, b, c);
 
 
 

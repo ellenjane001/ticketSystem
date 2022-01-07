@@ -43,7 +43,7 @@ $(document).ready(function () {
             url: 'tickets.php',
             method: 'post',
             data: {
-                user: user,
+                username: user,
                 id: id_num,
                 dateNTime: dateNTime,
                 ticketNum: ticketNum,

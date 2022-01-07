@@ -1,9 +1,12 @@
+<?php require_once('components/header.php'); ?>
 <!--nav bar  -->
 <div id="stat"></div>
 <div class="main-header">
     <div class="user">
+
         <span id="time" style="font-size: medium;"></span>
         <br>
+        <img class="circular--square" src="srcs/img_315638.svg" />
         <a class="account" style="font-size: medium;"> <?php echo $_SESSION['accountInfo']['username'] ?></a>
         &nbsp; <a id="logout" href="index.php?logout" onclick="logout()">Logout</a>
 
