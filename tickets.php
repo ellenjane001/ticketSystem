@@ -1,5 +1,8 @@
 <?php
 // require_once('components/header.php');
+if (!isset($_SESSION)) {
+    session_start();
+}
 require_once('database/dbconn.php');
 
 
@@ -54,6 +57,14 @@ class TicketMonitoring
                     $this->updateTicket($args);
                     $historyLogs->addLog($args);
                     break;
+                case 'print':
+                    // echo 'hi';
+                    $this->_export();
+                    // exit(print_r($args));
+                    require_once('accounts.php');
+                    $historyLogs = new historyLogs();
+                    $historyLogs->addLog($args);
+                    break;
                 default:
                     echo "ERROR101";
                     break;
@@ -73,9 +84,19 @@ class TicketMonitoring
 
             $row = $query->fetchAll(PDO::FETCH_ASSOC);
 
-            $temp = "<table class='tbl'>";
+            // $_SESSION['query'] = $row;
+            // exit(print_r($row[0]));
+            // for ($i = 0; $i < count($row); $i++) {
+            //     $rowItem = array($row[$i]);
+            //     $_SESSION['data'] = json_encode($rowItem, true);
+            // }
+
+
+            // $temp = "<button onclick='printToExcel()'>Print</button>";
+            $temp = "<table id='tbl' class='tbl'>";
             $temp .= "<thead>";
             $temp .= "<tr>";
+            $temp .= "<th style='width:75px;'>ID</th>";
             $temp .= "<th class='size'>status</th>";
             $temp .= "<th style='width: 110px;'>Ticket#</th>";
             $temp .= "<th style='width: 200px'>Request</th>";
@@ -85,7 +106,7 @@ class TicketMonitoring
             $temp .= "<th style='width:75px;'>due</th>";
             $temp .= "<th>Assign to</th>";
             $temp .= "<th style='width:100px;'>Date & Time</th>";
-            $temp .= "<th class='size'></th></tr>";
+            $temp .= "<th class='size'>option</th></tr>";
             $temp .= "</thead>";
 
 
@@ -111,6 +132,7 @@ class TicketMonitoring
                     $bgcolor = "color:red";
                 }
                 $temp .= "<tr>";
+                $temp .= "<td style='width:75px;'>" . $data["ticket_id"] . "</td>";
                 $temp .= "<td class='size' style='$color'>" . $data["status"] . "</td>";
                 $temp .= "<td style='width: 110px;'>" . $data["ticketNumber"] . "</td>";
                 $temp .= "<td style='width: 200px'>" . $data["issue_problem"] . "</td>";
@@ -120,8 +142,7 @@ class TicketMonitoring
                 $temp .= "<td  style='width:75px;'>" . $data["due"] . "</td>";
                 $temp .= "<td>" . $data["assignedTo"] . "</td>";
                 $temp .= "<td style='width:100px;'>" . $data["dateNTime"] . "</td>";
-
-                $temp .= "<td class='size'>";
+                $temp .= "<td class='size' style='text-decoration: underline;'>";
                 $temp .= "<a href='#' id=" . $data["ticketNumber"] . " onclick='pageLoader(this)'>View</a>";
                 $temp .= "</td>";
                 $temp .= "</tr>";
@@ -131,6 +152,12 @@ class TicketMonitoring
             $temp .= "</table>";
 
             echo $temp;
+
+
+
+            $_SESSION['query'] = $row;
+
+            // echo $_SESSION['table'];
         }
 
         $show = $params['show'];
@@ -179,7 +206,7 @@ class TicketMonitoring
                     break;
             }
         } else {
-            $sql = "SELECT * FROM " . $this->db_table . "";
+            $sql = "SELECT * FROM " . $this->db_table . " ";
             showData($sql);
         }
     }
@@ -239,7 +266,8 @@ class TicketMonitoring
                 return $query;
                 break;
             case 'tickets':
-                $sql = "SELECT * FROM " . $this->db_table . " WHERE createdBy = '" . $val . "'";
+                $sql = "SELECT DISTINCT ticketNumber, issue_problem, status FROM ticketMonitoring WHERE createdBy = '" . $val . "'";
+                // echo '<script>console.log(' . $sql . ',' . $val . ')</script>';
                 $query = $this->conn->prepare($sql);
                 $query->execute();
                 // echo ('hey');
@@ -334,6 +362,76 @@ class TicketMonitoring
         }
         // resolution ='" . $params['actionDetails'] . "',
         // actionBy  ='" . $params['actionBy'] . "'
+    }
+
+    public function _export()
+    {
+
+        $query_data = $_SESSION['query'];
+
+        $array_keysx = array(
+            array('key' => 'status', 'value' => 'status'),
+            array('key' => 'ticketNumber', 'value' => 'ticketNumber'),
+            array('key' => 'issue_problem', 'value' => 'issue_problem'),
+            array('key' => 'createdby', 'value' => 'createdby'),
+            array('key' => 'category', 'value' => 'category'),
+            array('key' => 'priority', 'value' => 'priority'),
+            array('key' => 'due', 'value' => 'due'),
+            array('key' => 'assignedTo', 'value' => 'assignedTo'),
+            array('key' => 'dateNTime', 'value' => 'dateNTime'),
+
+
+        );
+        // print_r($array_keysx);
+        $value = '';
+        $array_title = array();
+        foreach ($array_keysx as $key => $val) {
+            array_push($array_title, $val['value']);
+        }
+        $value .= '#,';
+        for ($x = 0; $x < count($array_title); $x++) {
+            $comma = '';
+            if ($x != 0) {
+                $comma = ",";
+            }
+            $value .= $comma . $array_title[$x];
+        }
+        for ($x = 0; $x < count($query_data); $x++) {
+            foreach ($query_data[$x] as $key => $val) {
+                if (($query_data[$x][$key] == '')) {
+                    $query_data[$x][$key] = 'N/A';
+                } else {
+                    $query_data[$x][$key] = $this->_check_badchar($val);
+                }
+            }
+        }
+        for ($x = 0; $x < count($query_data); $x++) {
+            $value .= ($x + 1);
+            $value .= ',' . $query_data[$x]['status'];
+            $value .= ',' . $query_data[$x]['ticketNumber'];
+            $value .= ',' . $query_data[$x]['issue_problem'];
+            $value .= ',' . $query_data[$x]['createdby'];
+            $value .= ',' . $query_data[$x]['category'];
+            $value .= ',' . $query_data[$x]['priority'];
+            $value .= ',' . $query_data[$x]['due'];
+            $value .= ',' . $query_data[$x]['assignedTo'];
+            $value .= ',' . $query_data[$x]['dateNTime'];
+
+            $value .= "\r\n";
+        }
+
+        $file = fopen('srcs/download.csv', 'w');
+        fwrite($file, ($value));
+        fclose($file);
+        echo '<script>window.location.assign("srcs/download.csv")</script>';
+    }
+
+    private function _check_badchar($val)
+    {
+        if (strpos($val, ',')) {
+            $val = '"' . $val . '"';
+        }
+        return $val;
     }
 }
 

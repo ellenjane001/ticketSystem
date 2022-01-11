@@ -1,6 +1,9 @@
 <?php
 
-require_once('components/header.php');
+// require_once('components/header.php');
+if (!isset($_SESSION)) {
+    session_start();
+}
 require_once('database/dbconn.php');
 
 $accounts = new Accounts;
@@ -137,6 +140,14 @@ class historyLogs
         }
     }
 
+    public function selectEvents()
+    {
+        $sql = "SELECT DISTINCT event FROM historylogs";
+        $query = $this->conn->prepare($sql);
+        $query->execute();
+        return $query;
+    }
+
     public function showHistoryLogs($args)
     {
         function showData($sql)
@@ -178,11 +189,21 @@ class historyLogs
                     showData($sql);
                     break;
                 case 'userHistory':
-                    // echo "<script>console.log('hi')</script>";
+
                     $sql = "SELECT * FROM historylogs WHERE user ='" . $args['search'] . "'";
                     showData($sql);
                     break;
                 case 'select':
+                    if (isset($args['search']) && isset($args['search2'])) {
+                        $sql = "SELECT id, dateNtime, event , user FROM historylogs WHERE 
+                     user = '" . $args['searchUser'] . "' AND dateNtime BETWEEN '" . $args['search'] . "' 
+                     AND '" . $args['search2'] . "' ";
+                        showData($sql);
+                        // exit(print_r($sql));
+                    }
+                    break;
+                case 'eventHistory':
+                    echo ("hi");
                     break;
             }
         } else {

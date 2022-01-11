@@ -53,11 +53,11 @@ $val = array("OPEN", "RESOLVED", "PENDING");
         <p id="time"></p>
     </div> -->
         <div class="textFormat col-2">
-            <h2>Number of Users</h2>
+            <h2>Number of Users <img src="srcs/icons8-user-24.png" alt=""></h2>
             <h2 id="usercount"><?php echo $stmt->total; ?></h2>
         </div>
         <div class="textFormat col-3">
-            <h2>Number of Tickets</h2>
+            <h2>Number of Tickets <img src="srcs/icons8-combi-ticket-30.png" alt=""></h2>
             <h2><?php echo $data1->total; ?></h2>
         </div>
     </div>

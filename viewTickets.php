@@ -4,6 +4,7 @@ require_once('database/dbconn.php');
 require_once('accounts.php');
 require_once('components/nav.php');
 
+
 $database = new Database();
 $conn = $database->getConnection();
 
@@ -35,10 +36,10 @@ if ($_SESSION['accountInfo']['type'] != 'admin') {
                 <input type="search" placeholder="search" name="search" id="query" onkeyup="getValue(this)">
                 <br>
                 <fieldset id="filterField">
-                    <legend>Filter</legend>
+                    <legend><img class="wrapper-image" src="srcs/icons8-filter-16.png"> Filter </legend>
 
                     <input type="radio" value="0" name="filterField" id="ticketStat" onclick="showRadio(this)">
-                    <label for="ticketStat" id='labelStat'>Ticket Status</label>
+                    <label for="ticketStat" id='labelStat'> <img class="wrapper-image" src="srcs/icons8-combi-ticket-30.png" alt=""> Ticket Status</label>
                     <div id="valueStat" class="values">
                         <input type="radio" name="ticketStatRadio" id="open" value="open" onclick="getValue(this)">
                         <label for=" open">open</label><br>
@@ -49,7 +50,7 @@ if ($_SESSION['accountInfo']['type'] != 'admin') {
                     </div>
                     <br>
                     <input type="radio" value="1" name="filterField" id="ticketCtgry" onclick="showRadio(this)">
-                    <label for="ticketCtgry" id="labelCtgry">Ticket Category</label>
+                    <label for="ticketCtgry" id="labelCtgry"><img class="wrapper-image" src="srcs/icons8-combi-ticket-30.png" alt=""> Ticket Category</label>
                     <div id="valueCategory" class="values">
                         <input type="radio" name="radioCtgry" id="hardware" value="hardware" onclick="getValue(this) ">
                         <label for="hardware">hardware</label><br>
@@ -69,7 +70,7 @@ if ($_SESSION['accountInfo']['type'] != 'admin') {
                     </div>
                     <br>
                     <input type="radio" value="2" name="filterField" id="ticketPriority" onclick="showRadio(this)">
-                    <label for="ticketPriority" id="labelPriority">Ticket Priority</label>
+                    <label for="ticketPriority" id="labelPriority"><img class="wrapper-image" src="srcs/icons8-combi-ticket-30.png" alt=""> Ticket Priority</label>
                     <div id="valuePriority" class="values">
                         <input type="radio" name="ticketPrior" id="low" value="low" onclick="getValue(this)">
                         <label for="low">low</label><br>
@@ -80,7 +81,7 @@ if ($_SESSION['accountInfo']['type'] != 'admin') {
                     </div>
                 </fieldset>
                 <fieldset id="sortField">
-                    <legend>SORT BY</legend>
+                    <legend> <img class="wrapper-image" src="srcs/icons8-sort-24.png" alt=""> SORT BY</legend>
                     <div id="valueAsc" class="">
                         <input type="radio" name="sort" id="asc" value="asc" onclick="getValue(this)">
                         <label for="asc">Ascending</label> <br>
@@ -89,7 +90,7 @@ if ($_SESSION['accountInfo']['type'] != 'admin') {
                     </div>
                 </fieldset>
                 <fieldset>
-                    <legend>user</legend>
+                    <legend> <img class="wrapper-image" src="srcs/icons8-user-24.png" alt="">user</legend>
                     <div>
                         <?php
                         $result = $accounts->getUsers();

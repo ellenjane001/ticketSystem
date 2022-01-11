@@ -1,0 +1,73 @@
+#,status,ticketNumber,issue_problem,createdby,category,priority,due,assignedTo,dateNTime1,resolved,61b9599eaf519,Mouse not working,test2,hardware,high,2021-12-14,N/A,2022-01-07 17:09:00
+2,resolved,61b95a469cafe,no internet,admin,network,high,2021-12-14,it,2021-12-27 07:16:00
+3,resolved,61b95a4c74a37,test,admin,hardware,high,2021-12-14,test,2022-01-05 10:58:00
+4,open,61b95a4c74a37,test, admin,hardware,high,2021-12-14,test,2021-12-14 09:55:00
+5,resolved,61b95a5741dec,test, admin,hardware,high,2021-12-14,test,2021-12-20 03:03:00
+6,resolved,61b95a5e74af1,test2,admin,hardware,high,N/A,test2,2022-01-07 16:55:00
+7,resolved,61b95a650463b,test3,test2,hardware,high,2021-12-14,tes3,2022-01-07 17:16:00
+8,open,61b95a69d4564,test3, admin,hardware,high,2021-12-14,tes3,2021-12-14 09:59:00
+9,open,61b95ec790904,test3, admin,hardware,high,2021-12-14,tes3,2021-12-14 09:59:00
+10,open,61b95ece0f460,test3, admin,hardware,high,2021-12-14,tes3,2021-12-14 09:59:00
+11,open,61b95ed5730b2,test, admin,hardware,high,2021-12-14,t,2021-12-14 09:59:00
+12,resolved,61b95edbc2f31,test4,admin,hardware,high,N/A,test4,2021-12-24 04:58:00
+13,resolved,61b95ee14fc52,N/A,admin,hardware,high,N/A,N/A,2021-12-24 04:58:00
+14,resolved,N/A,Lorem ipsum dolor sit amet,N/A,hardware,high,2021-12-15,test,2021-12-15 05:29:00
+15,resolved,N/A,Lorem ipsum dolor sit amet,N/A,hardware,low,2021-12-31,test,2021-12-15 05:44:00
+16,resolved,N/A,Lorem ipsum dolor sit amet,admin,hardware,low,2021-12-31,test,2021-12-15 05:45:00
+17,resolved,61b97323424eb,Lorem ipsum dolor sit amet,admin,hardware,low,2021-12-31,test,2021-12-15 05:46:00
+18,resolved,61b97399b8405,Lorem ipsum dolor sit amet,admin,hardware,low,2021-12-31,test,2021-12-15 05:48:00
+19,resolved,61b973b743ee5,Lorem ipsum dolor sit amet,admin,hardware,low,2021-12-31,test,2021-12-15 05:48:00
+20,resolved,61b973d608665,Lorem ipsum dolor sit amet,test,hardware,low,2021-12-31,test,2021-12-24 06:59:00
+21,resolved,61b99cf891132,Lorem Ipsum Dolor Sit Amet,admin,software,medium,N/A,test,2021-12-24 04:59:00
+22,pending,61b9a5a0cb0a8,Lorem ipsum dolor sit amet.,test,hardware,high,N/A,lorem,2021-12-15 09:21:00
+23,pending,61b9a5cbb9ba1,Lorem ipsum dolor sit amet.,test,hardware,high,N/A,lorem,2021-12-15 09:22:00
+24,pending,61b9a5e582fee,Lorem ipsum dolor sit amet.,test,hardware,high,N/A,lorem,2021-12-15 09:23:00
+25,pending,61c5443c9475c,test,admin,network,high,2021-12-24,test,2021-12-24 04:53:00
+26,resolved,61c5453240499,test,admin,hardware,high,2021-12-24,test,2021-12-24 04:57:00
+27,open,61c97fc803d58,test,test,email,medium,2021-12-27,test,2021-12-27 09:56:00
+28,resolved,61cbb948dec33,test11111,admin,test111,high,N/A,N/A,2021-12-31 10:50:00
+29,open,61cbbaa8f0339,test,test,hardware,medium,2021-12-29,test,2021-12-29 02:32:00
+30,open,61cc02099b754,testing,admin,hardware,medium,2021-12-29,test,2021-12-29 07:36:00
+31,open,61cc025d397d9,ss,admin,software,high,N/A,N/A,2021-12-29 07:38:00
+32,open,61cc028e300fd,aaa,admin,software,N/A,N/A,N/A,2021-12-29 07:39:00
+33,resolved,61cc0526d543f,cant receive message,admin,email,high,2021-12-31,test,2022-01-03 15:53:00
+34,open,61cc0909d7e6b,test,admin,hardware,high,2021-12-29,it1,2021-12-29 08:06:00
+35,open,61ce5aa4a155e,test,admin,hardware,high,2021-12-31,it1,2021-12-31 02:19:00
+36,open,61ce6f04ed2fb,test,admin,software,high,2021-12-31,it1,2021-12-31 10:46:00
+37,open,61cea5ebcd0fe,testing 101,admin,network,high,2021-12-31,it1,2021-12-31 14:40:00
+38,open,61cea6396ed8a,testing 102,admin,maintenance,high,2021-12-08,it1,2021-12-31 14:42:00
+39,open,61cea654e2269,testing 103,admin,email,medium,2021-12-31,it2,2021-12-31 14:42:00
+40,open,61ceaf1fc30be,no internet,admin,software,high,2021-12-31,it2,2021-12-31 15:19:00
+41,pending,61d24b9823de0,sadsadasdas,admin,hardware,high,2022-01-03,it2,2022-01-03 15:59:00
+42,open,61d2644d47967,testing,admin,hardware,high,2022-01-03,it2,2022-01-03 10:49:00
+43,open,61d26496027ac,testing,admin,software,high,2022-01-03,it1,2022-01-03 10:51:00
+44,open,61d26496027ac,testing,admin,software,high,2022-01-03,it1,2022-01-03 10:51:00
+45,resolved,61d264f605c2b,test,admin,network,medium,2022-01-03,it1,2022-01-03 11:42:00
+46,open,61d264f605c2b,test,admin,network,medium,2022-01-03,it1,2022-01-03 10:52:00
+47,open,61d26517a1814,testing,admin,software,high,2022-01-03,it2,2022-01-03 10:53:00
+48,open,61d2706aca590,testing 2,admin,hardware,high,2022-01-03,it2,2022-01-03 11:41:00
+49,open,61d2a5744f6a1,test,admin,network,medium,2022-01-03,it1,2022-01-03 15:27:00
+50,resolved,61d2a7b373838,test,admin,other,high,2022-01-03,it2,2022-01-05 17:01:00
+51,resolved,61d2a96fcb662,test,admin,other,medium,2022-01-03,it2,2022-01-03 16:14:00
+52,resolved,61d2a9c91c287,test,admin,test,medium,2022-01-03,it2,2022-01-03 15:57:00
+53,open,61d2bf4a3ed1e,test,test,test,medium,2022-01-03,it1,2022-01-03 17:18:00
+54,open,61d5054280ac8,test,test,software,medium,2022-01-05,it2,2022-01-05 10:41:00
+55,open,61d5086119d9b,test,test,maintenance,medium,2022-01-05,it2,2022-01-05 10:54:00
+56,open,61d5086119d9b,test,test,network,medium,2022-01-05,it2,2022-01-05 10:54:00
+57,open,61d508a3eb921,test,test,software,medium,2022-01-05,it2,2022-01-05 10:55:00
+58,open,61d508d3e7cdc,test,test,network,medium,2022-01-05,it2,2022-01-05 10:56:00
+59,open,61d508faa34dc,test,test,software,medium,2022-01-05,it2,2022-01-05 10:56:00
+60,open,61d518f60e3e5,test,admin,maintenance,high,2022-01-05,it2,2022-01-05 12:05:00
+61,open,61d52602d2c51,test,test2,network,medium,2022-01-05,it2,2022-01-05 13:00:00
+62,open,61d545c3059b9,test,test2,email,medium,2022-12-31,it1,2022-01-05 15:16:00
+63,open,61d545cd143f4,test2,test2,software,medium,2022-12-31,it1,2022-01-05 15:16:00
+64,open,61d545d71163b,test,test2,email,medium,2022-12-31,it1,2022-01-05 15:16:00
+65,open,61d545eb7f267,test,test2,network,medium,2022-12-31,it1,2022-01-05 15:16:00
+66,open,61d55b7916cf9,test1111,N/A,software,high,2022-01-05,it1,2022-01-05 16:48:00
+67,open,61d55b96e366a,test,N/A,hardware,high,2022-01-05,it2,2022-01-05 16:49:00
+68,open,61d55ba4b8ba8,test,N/A,hardware,medium,2022-01-05,it2,2022-01-05 16:49:00
+69,open,61d55be41eea4,test,admin,network,high,2022-01-05,it2,2022-01-05 16:50:00
+70,resolved,61d55cba6b724,test,admin,network,high,2022-01-05,it2,2022-01-05 17:00:00
+71,open,61d792ab830a9,test,admin,software,medium,2022-12-31,it1,2022-01-07 09:08:00
+72,resolved,61d7de9735fcb,test,admin,network,medium,2022-01-07,it1,2022-01-07 14:52:00
+73,open,61d7e90338f2f,test,admin,email,medium,2022-01-07,it2,2022-01-07 15:17:00

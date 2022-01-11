@@ -1,5 +1,5 @@
 <?php
-// require_once('components/header.php');
+require_once('components/header.php');
 // require_once('database/dbconn.php');
 require_once('accounts.php');
 require_once('components/nav.php');
@@ -23,42 +23,64 @@ if ($_SESSION['accountInfo']['type'] != 'admin') {
     <div class="panel">
 
         <div class="panel-filter">
-            <!-- <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. At rerum aut odio officia aliquid voluptatem.</p> -->
-            <fieldset class='filter-fieldset'>
-                <legend>Filter by
-                </legend>
-                <!-- <span>USER</span> -->
-                <div>
-                    <?php
-                    $result = $accounts->getUsers();
-                    $stmt = $result->fetchAll(PDO::FETCH_ASSOC);
+            <div class="panel-filter-child1"></div>
+            <div class="panel-filter-child2">
+                <fieldset class='filter-fieldset'>
+                    <legend>Filter by
+                    </legend>
 
-                    foreach ($stmt as $row) : ?>
-                        <input type="radio" name="HistoryLogsRadio_user" id="<?= $row['username'] ?>" value="<?= $row['username'] ?>" onclick="getHistoryLogFieldsetValue(this)">
-                        <label for="<?= $row['username'] ?>"><?= $row['username'] ?></label> <br>
-                    <?php
+                    <div>
+                        <?php
+                        $result = $accounts->getUsers();
+                        $stmt = $result->fetchAll(PDO::FETCH_ASSOC); ?>
+
+                        <span>USER</span>
+                        <br>
+                        <?php foreach ($stmt as $row) : ?>
+                            <input type="radio" name="HistoryLogsRadio_user" class="select" id="<?= $row['username'] ?>" value="<?= $row['username'] ?>" onclick="getHistoryLogFieldsetValue(this), showSelect(this)">
+                            <label for="<?= $row['username'] ?>"><?= $row['username'] ?></label> <br>
+
+                            <div style="display:none;" id="selectDate">
+                                <span>FROM</span>
+                                <br>
+                                <?php
+                                $style = "width: 150px";
+                                ?>
+                                <input style="<?= $style ?>" type="date" class="showData" name="showDateFrom" id="dateFrom" max="" onchange="getHistoryLogFieldsetValue(this)">
+                                <input type="time" class="showData" name="showTimeFrom" id="timeFrom" max="" onchange="getHistoryLogFieldsetValue(this)">
+                                <br>
+                                <span>TO</span>
+                                <br>
+                                <input style="<?= $style ?>" type="date" class="showData" name="showDateTo" id="dateTo" max="" onchange="getHistoryLogFieldsetValue(this)">
+                                <input type="time" class="showData" name="showTimeTo" id="timeTo" max="" onchange="getHistoryLogFieldsetValue(this)">
+                                <br>
+                            </div>
+
+                        <?php
 
 
-                    endforeach;
-                    ?>
+                        endforeach; ?>
+                        <span>EVENT</span>
+                        <?php
 
-                </div>
-            </fieldset>
-            <br>
-            <fieldset>
-                <legend>SHOW data</legend>
-                <input type="radio" class="showData" name="showData" id="" onclick="getHistoryLogFieldsetValue(this)">
-                <label for="">ALL</label><br>
-                <input type="radio" class="showData" name="showData" id="" value="select" onclick="showSelect(this)">
-                <label for="">Select date</label>
-                <div style="display:none;" id="selectDate">
-                    <span>FROM</span>
-                    <input type="datetime-local" class="showData" name="showDateFrom" id="dateFrom" max="" onchange="getHistoryLogFieldsetValue(this)">
-                    <br>
-                    <span>TO</span>
-                    <input type="datetime-local" class="showData" name="showDateTo" id="dateTo" max="" onchange="getHistoryLogFieldsetValue(this)">
-                </div>
-            </fieldset>
+                        $results = $historyLogs->selectEvents();
+                        $stmts = $results->fetchAll(PDO::FETCH_ASSOC);
+                        foreach ($stmts as $data) : ?>
+
+                            <br>
+                            <input type="radio" name="HistoryLogsRadio_event" id="" value="<?= $data['event'] ?>" onclick="getHistoryLogFieldsetValue(this)">
+                            <label for=""><?= $data['event'] ?></label>
+                        <?php
+                        endforeach; ?>
+
+
+                    </div>
+
+                </fieldset>
+
+            </div>
+
+
         </div>
         <div class="panel-historylog">
             <div>

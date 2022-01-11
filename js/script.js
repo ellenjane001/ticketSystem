@@ -8,10 +8,7 @@ let username = document.getElementById("user").value;
 let dateNtime = document.getElementById("dateNtime").value;
 let action = 'Logged out';
 let val = 'logout';
-//console.log(username, dateNtime, action, val)
-// e.preventDefault(); href="index.php?logout"
-// console.log(username, dateNtime, action, val)
-// console.log(value.value)
+
 function logout() {
 
     $.ajax({
@@ -43,7 +40,6 @@ function refresh() {
     }, 100)
 
 }
-
 function showRadio(radioStat) {
     var selectedValue = radioStat.value;
 
@@ -88,12 +84,36 @@ function showInput(radioOther) {
     }
 }
 function showSelect(radioSelect) {
-    var selectedValue = radioSelect.value;
+    var selectedValue = radioSelect.classList[0];
     if (selectedValue === "select") {
         document.getElementById('selectDate').style.display = block;
     } else if (selectedValue === "") {
         document.getElementById('selectDate').style.display = none;
     }
+}
+
+function exportToCSV(value) {
+    let uName = value.classList[0];
+
+    let date = document.getElementById('dateNTime').value;
+    console.log(date);
+    $.ajax({
+        url: "tickets.php",
+        method: "POST",
+        data: {
+            username: uName,
+            dateNTime: date,
+            action: "exported data to CSV",
+            request_type: 'print',
+        },
+        success: function (data) {
+            $('#message').html(data);
+            var timer = setTimeout(function () {
+                location.reload();
+            }, 100)
+
+        }
+    })
 }
 
 function sendInput(value) {
@@ -126,6 +146,7 @@ function loadData(value, value1) {
         },
         success: function (data) {
             $('#message').html(data);
+
         }
     });
 }
@@ -168,40 +189,54 @@ function getValue(value) {
 
 function getHistoryLogFieldsetValue(value) {
     var datePickerFrom = document.querySelector('#dateFrom');
-    // datePickerFrom.max = new Date().toLocaleDateString('en-ca');
+    var timePickerFrom = document.querySelector('#timeFrom');
+
     var datePickerTo = document.querySelector('#dateTo')
-    // datePickerTo.max = new Date().toLocaleDateString('en-ca');
+    var timePickerTo = document.querySelector('#timeTo')
+
     if (value === undefined) {
         loadAccounts();
     } else {
-        console.log(value.classList[0]);
+        // console.log(value.classList[0]);
         if (value.name === 'HistoryLogsRadio_user') {
             params = value.value
 
             show = 'userHistory';
-            // console.log(params, show)
+
             loadAccounts(show, params);
         } else if (value.classList[0] === 'showData') {
-            console.log(datePickerFrom.value + datePickerTo.value)
-            if (value.name === 'showDateFrom' && value.name === 'showDateTo') {
-                date = datePickerFrom.value + datePickerTo.value
-                console.log(datePickerFrom.value + datePickerTo.value)
-                show = 'select'
-                loadAccounts(show, date);
 
-            }
-        } else {
+            let dateTimeFrom = datePickerFrom.value + " " + timePickerFrom.value + ":00";
+            let dateTimeTo = datePickerTo.value + " " + timePickerTo.value + ":00"
+            let date_time_from = dateTimeFrom.toString();
+            let date_time_to = dateTimeTo.toString();
+            // console.log(params)
+            show = 'select'
+            loadAccounts(show, date_time_from, date_time_to, params);
+            // }
+        } else if (value.name === 'HistoryLogsRadio_event') {
+            console.log(value.value)
+            parameter = value.value;
+            show = 'eventHistory'
+            loadAccounts(show, parameter, params)
+        }
+
+
+        else {
             console.log('no value')
         }
     }
 }
-function loadAccounts(value, value1) {
+function loadAccounts(value, datefrom, dateto, user) {
+    // console.log(value1)
     $.ajax({
         url: "accounts.php",
         method: "POST",
         data: {
             query: value,
-            search: value1,
+            search: datefrom,
+            search2: dateto,
+            searchUser: user,
             request: 'user'
         },
         success: function (data) {

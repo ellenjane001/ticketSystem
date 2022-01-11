@@ -1,25 +1,115 @@
 <?php
-
 require_once('components/header.php');
 require_once('database/dbconn.php');
 require_once('components/nav.php');
-
+require_once('tickets.php');
+$database = new Database();
+$conn = $database->getConnection();
+$tickets = new TicketMonitoring($conn);
+$val = $_SESSION['accountInfo']['username'];
+// exit(print_r($_SESSION['accountInfo']['type']));
+// $ticket=$tickets->getUserTicketCount()
 ?>
-
 
 <div class="main">
     <div class="message"></div>
     <div class="panel">
-
         <div id="userDashboard" class="panel-userDashboard">
             <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio quasi, dolorum fugiat provident doloribus in!</p> -->
             <div class="panel-userDashboard-header">
                 <h1> Hi <?php echo $_SESSION['accountInfo']['username'] ?></h1>
             </div>
-            <div class="panel-userDashboard-items"><span>Tickets</span></div>
-            <div class=""><span>Open</span></div>
-            <div class=""><span>Pending</span></div>
-            <div class=""><span>Resolved</span></div>
+            <div class="panel-userDashboard-item">
+                <span>Tickets</span>
+                <br>
+                <span><?php
+                        $allStat = 'all';
+                        $allTickets = $tickets->getUserTicketCount($allStat, $val);
+                        $row = $allTickets->fetch(PDO::FETCH_OBJ);
+                        echo $row->total;
+                        ?></span>
+            </div>
+            <div class="panel-userDashboard-content">
+
+                <div class="panel-userDashboard-content-col">
+                    <span>Open</span>
+                    <br>
+                    <p id="open"><?php
+                                    $openStat = 'open';
+                                    $openTickets = $tickets->getUserTicketCount($openStat, $val);
+                                    $row = $openTickets->fetch(PDO::FETCH_OBJ);
+                                    echo $row->total;
+                                    ?></p>
+                </div>
+                <div class="panel-userDashboard-content-col">
+                    <span>Pending</span>
+                    <br>
+                    <p id="pending"><?php
+                                    $pendingStat = 'pending';
+                                    $pendingTickets = $tickets->getUserTicketCount($pendingStat, $val);
+                                    $row = $pendingTickets->fetch(PDO::FETCH_OBJ);
+                                    echo $row->total;
+                                    ?></p>
+                </div>
+                <div class="panel-userDashboard-content-col">
+                    <span>Resolved</span>
+                    <br>
+                    <p id="resolved"><?php
+                                        $resolvedStat = 'resolved';
+                                        $resolvedTickets = $tickets->getUserTicketCount($resolvedStat, $val);
+                                        $row = $resolvedTickets->fetch(PDO::FETCH_OBJ);
+                                        echo $row->total;
+                                        ?></p>
+                </div>
+
+            </div>
+            <div class="panel-userDashboard-content-bottom">
+                <div class="panel-userDashboard-content-chart">
+                    <div id="donut_single1" class="donut_single1">
+
+                    </div>
+                </div>
+                <div class="panel-userDashboard-content-bottom-list">
+                    <span>List of requests</span>
+                    <p>
+                    <table class="panel-userDashboard-content-bottom-table">
+                        <thead>
+                            <tr>
+                                <th>TicketNumber</th>
+                                <th>problem</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $requestTicket = "tickets";
+
+                            $requestTickets = $tickets->getUserTicketCount($requestTicket, $val);
+                            $rows = $requestTickets->fetchAll(PDO::FETCH_ASSOC);
+                            // echo $rows;
+                            foreach ($rows as $data) : ?>
+
+                                <tr>
+                                    <td>
+                                        -<?= $data['ticketNumber'] ?>-
+                                    </td>
+                                    <td>
+                                        -<?= $data['issue_problem'] ?>-
+                                    </td>
+                                    <td>
+                                        -<?= $data['status'] ?>-
+                                    </td>
+                                </tr>
+                            <?php
+                            endforeach;
+                            ?>
+                        </tbody>
+                    </table>
+                    <!-- <span><?= $total = count($data); ?></span> -->
+                    </p>
+
+                </div>
+            </div>
         </div>
         <div class="panel-addTicket">
             <div class="panel-addTicket-content">
@@ -106,7 +196,7 @@ if (!(isset($_SESSION['accountInfo']))) {
     element2.classList.add('hide');
     </script>";
 
-    if ($_SESSION['accountInfo']['type'] != 'it') {
+    if ($_SESSION['accountInfo']['type'] === 'user') {
         echo "<script>
     let element4= document.getElementById('viewTickets');
     element4.classList.add('hide');
@@ -122,3 +212,4 @@ if (!(isset($_SESSION['accountInfo']))) {
 require_once('components/footer.php');
 ?>
 <script src="js/addTicket.js"></script>
+<script src="js/chart.js"></script>
