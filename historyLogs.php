@@ -23,7 +23,9 @@ if ($_SESSION['accountInfo']['type'] != 'admin') {
     <div class="panel">
 
         <div class="panel-filter">
-            <div class="panel-filter-child1"></div>
+            <div class="panel-filter-child1">
+                <img src="srcs/refresh.png">
+            </div>
             <div class="panel-filter-child2">
                 <fieldset class='filter-fieldset'>
                     <legend>Filter by

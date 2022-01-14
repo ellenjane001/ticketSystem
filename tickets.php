@@ -11,7 +11,6 @@ require_once('database/dbconn.php');
 $tickets = new TicketMonitoring();
 $tickets->init($_REQUEST);
 
-
 class TicketMonitoring
 {
     private $conn;

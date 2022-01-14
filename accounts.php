@@ -111,6 +111,7 @@ class historyLogs
     public function initialize($args)
     {
         // print_r($args);
+
         $type = $args['request'];
         switch ($type) {
             case 'user':
@@ -148,16 +149,81 @@ class historyLogs
         return $query;
     }
 
+    public function getDate($args)
+    {
+        $dateToday = $args;
+
+        $sql = "SELECT dateNtime from historyLogs";
+        $query = $this->conn->prepare($sql);
+        $query->execute();
+        $row = $query->fetch(PDO::FETCH_ASSOC);
+        foreach ($row as $date) :
+
+            $date1 = strtotime($date["dateNtime"]);
+            $array = array($date1);
+        endforeach;
+        $date2 = strtotime($dateToday);
+        $diff = abs($date2 - $date1);
+        $years = floor($diff / (365 * 60 * 60 * 24));
+        $months = floor(($diff - $years * 365 * 60 * 60 * 24)
+            / (30 * 60 * 60 * 24));
+        $days = floor(($diff - $years * 365 * 60 * 60 * 24 -
+            $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+        $hours = floor(($diff - $years * 365 * 60 * 60 * 24
+            - $months * 30 * 60 * 60 * 24 - $days * 60 * 60 * 24)
+            / (60 * 60));
+        $minutes = floor(($diff - $years * 365 * 60 * 60 * 24
+            - $months * 30 * 60 * 60 * 24 - $days * 60 * 60 * 24
+            - $hours * 60 * 60) / 60);
+        $oneYr = "year";
+        $add = "s";
+        $oneMonth = "month";
+        $oneDay = "day";
+        $oneHr = "hour";
+        $oneMin = "minute";
+        $info1 = array("$months", "$days", "$hours", "$minutes");
+        $info = array("$oneYr", "$oneMonth", "$oneDay", "$oneHr", "$oneMin");
+
+        $intArray = array_map(
+            function ($value) {
+                return (int)$value;
+            },
+            $info1
+        );
+        foreach ($intArray as $data) {
+            foreach ($info as $item) {
+                if ($data > 0) {
+                    if ($data === 1) {
+                        $result = $data;
+                        $result .= $item;
+                    } else {
+                        $result = $data;
+                        $result .= $item . $add;
+                    }
+                } else {
+                    $result = "0";
+                }
+                $intervalFormat = array($result);
+            }
+        }
+
+        return $intervalFormat;
+    }
+
     public function showHistoryLogs($args)
     {
-        function showData($sql)
+        function showData($sql, $value)
         {
+            $history = new historyLogs();
+            $date = array($history->getDate($value));
+            exit(print_r($date));
             $database = new Database();
             $conn = $database->getConnection();
+
             $query = $conn->prepare($sql);
             $query->execute();
             $row = $query->fetchAll(PDO::FETCH_ASSOC);
-            // exit(print_r($row));
+
             $temp = "<table class='historyLogs-table'>";
             $temp .= "<thead>";
             $temp .= "<tr>";
@@ -168,12 +234,13 @@ class historyLogs
             $temp .= "</thead>";
             $temp .= "<tbody>";
             foreach ($row as $data) :
+
                 $temp .= "<tr >";
 
                 $temp .= "<td class='id'>" . $data["id"] . "</td>";
-                $temp .= "<td >" . $data["user"] . "</td>";
-                $temp .= "<td >" . $data["event"] . "</td>";
-                $temp .= "<td >" . $data["dateNtime"] . "</td>";
+                $temp .= "<td>" . $data["user"] . "</td>";
+                $temp .= "<td>" . $data["event"] . "</td>";
+                $temp .= "<td>" . $date . "</td>";
                 $temp .= "</tr>";
             endforeach;
             $temp .= "</tbody>";
@@ -190,25 +257,32 @@ class historyLogs
                     break;
                 case 'userHistory':
 
-                    $sql = "SELECT * FROM historylogs WHERE user ='" . $args['search'] . "'";
+                    $sql = "SELECT * FROM historylogs WHERE user ='" . $args['search'] . "' order by id DESC";
                     showData($sql);
                     break;
                 case 'select':
                     if (isset($args['search']) && isset($args['search2'])) {
                         $sql = "SELECT id, dateNtime, event , user FROM historylogs WHERE 
                      user = '" . $args['searchUser'] . "' AND dateNtime BETWEEN '" . $args['search'] . "' 
-                     AND '" . $args['search2'] . "' ";
+                     AND '" . $args['search2'] . "'";
                         showData($sql);
                         // exit(print_r($sql));
+                    } else {
+                        echo "must select date and time";
                     }
                     break;
                 case 'eventHistory':
-                    echo ("hi");
+                    // echo ("hi");
+                    $sql = "SELECT * FROM historylogs WHERE event ='" . $args['search'] . "'";
+                    showData($sql);
+                    break;
                     break;
             }
         } else {
-            $sql = "SELECT * FROM historylogs";
-            showData($sql);
+            $sql = "SELECT * FROM historylogs order by id DESC";
+
+            $date = $args['date'];
+            showData($sql, $date);
         }
     }
 }

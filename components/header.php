@@ -12,7 +12,7 @@ date_default_timezone_set('Asia/Manila');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans&family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Montserrat:wght@300&family=Raleway&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/tableStyle.css">
     <link rel="stylesheet" href="css/style.css">
 
@@ -21,3 +21,4 @@ date_default_timezone_set('Asia/Manila');
 
 <body>
     <div class="main-container">
+        <input type="hidden" name="dateNtime" id="dateNTime" value="<?= date('Y-m-d H:i') ?>">

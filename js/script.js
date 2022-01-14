@@ -5,7 +5,7 @@ const normal = 'normal'
 
 
 let username = document.getElementById("user").value;
-let dateNtime = document.getElementById("dateNtime").value;
+let dateNtime = document.getElementById("dateNTime").value;
 let action = 'Logged out';
 let val = 'logout';
 
@@ -17,7 +17,7 @@ function logout() {
         data: {
             username: username,
             requestType: val,
-            dateNtime: dateNtime,
+            dateNTime: dateNtime,
             action: action
         },
         datatype: JSON,
@@ -218,7 +218,7 @@ function getHistoryLogFieldsetValue(value) {
             console.log(value.value)
             parameter = value.value;
             show = 'eventHistory'
-            loadAccounts(show, parameter, params)
+            loadAccounts(show, parameter)
         }
 
 
@@ -228,6 +228,8 @@ function getHistoryLogFieldsetValue(value) {
     }
 }
 function loadAccounts(value, datefrom, dateto, user) {
+
+    dateTime = document.getElementById('dateNTime').value + ":00";
     // console.log(value1)
     $.ajax({
         url: "accounts.php",
@@ -237,6 +239,7 @@ function loadAccounts(value, datefrom, dateto, user) {
             search: datefrom,
             search2: dateto,
             searchUser: user,
+            date: dateTime,
             request: 'user'
         },
         success: function (data) {

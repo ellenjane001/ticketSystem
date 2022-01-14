@@ -10,7 +10,7 @@ body {
   height: 100%;
 }
 body {
-  font-family: "Bebas Neue", cursive;
+  font-family: "Montserrat", sans-serif;
   width: 100%;
   height: 100%;
   overflow-x: hidden;
@@ -250,7 +250,7 @@ button:hover {
   border-radius: 10px;
   margin-bottom: 2px;
   width: 70%;
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: "Raleway", sans-serif;
 }
 
 .him {
@@ -372,7 +372,7 @@ button:hover {
   display: flex;
   overflow-y: auto;
   overflow-x: auto;
-  height: 601px;
+  height: 650px;
   width: 100%;
   flex-direction: column;
 }
@@ -472,7 +472,7 @@ textarea {
   height: 300px;
 }
 .logInput {
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: "Raleway", sans-serif;
   border: "rgba(0, 0, 0, 0)";
   border-radius: 8px;
   border-width: 1px;
@@ -480,7 +480,7 @@ textarea {
   text-transform: none !important;
 }
 #loginBtn {
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: "Raleway", sans-serif;
   /* border: "rgba(0, 0, 0, 0)"; */
   background-color: #393e46;
   color: azure;
@@ -532,7 +532,7 @@ a {
 }
 
 .textFormat {
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: "Raleway", sans-serif;
   text-transform: capitalize;
   text-align: center;
   cursor: default;

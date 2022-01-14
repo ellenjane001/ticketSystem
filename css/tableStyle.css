@@ -35,7 +35,7 @@
 select,
 ul,
 input[type="text"] {
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: "Raleway", sans-serif;
   text-transform: capitalize;
   font-size: 14px;
   margin: 10px;
@@ -122,7 +122,7 @@ th {
 button,
 table {
   text-transform: capitalize;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 14px;
 }
 a.account {
@@ -187,7 +187,7 @@ select:disabled {
 
 .dropdown,
 textarea {
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: "Raleway", sans-serif;
   text-transform: capitalize;
 }
 
